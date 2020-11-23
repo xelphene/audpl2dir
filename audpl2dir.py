@@ -35,15 +35,18 @@ def strToFilename(s):
     return rv
 
 def tagToFilename(path):
-    import eyeD3
-    tag = eyeD3.Tag()
-    tag.link(path)
-    artist = strToFilename(tag.getArtist())
-    title = strToFilename(tag.getTitle())
-    if artist=='' or title=='':
-        return None
-    newfn = '%s-%s.mp3' % (artist,title)    
-    return newfn
+    try:
+        import eyeD3
+        tag = eyeD3.Tag()
+        tag.link(path)
+        artist = strToFilename(tag.getArtist())
+        title = strToFilename(tag.getTitle())
+        if artist=='' or title=='':
+            return None
+        newfn = '%s-%s.mp3' % (artist,title)    
+        return newfn
+    except Exception, e:
+        print 'error reading tag for %s: %s' % (path, e)
 
 def getTagArtist(path):
     import eyeD3
